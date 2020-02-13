@@ -1,7 +1,7 @@
 import XCTest
 
-import FutureExtTests
+import CombineExtensionTests
 
 var tests = [XCTestCaseEntry]()
-tests += FutureExtTests.allTests()
+tests += CombineExtensionTests.allTests()
 XCTMain(tests)

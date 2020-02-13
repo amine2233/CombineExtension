@@ -1,5 +1,5 @@
 import XCTest
-@testable import FutureExt
+@testable import CombineExtension
 
 class ResultExtensionsTests: XCTestCase {
 

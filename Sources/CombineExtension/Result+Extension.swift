@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Amine Bensalah on 11/02/2020.
-//
-
 import Foundation
 
 /// A Protocol that represent `Result` type

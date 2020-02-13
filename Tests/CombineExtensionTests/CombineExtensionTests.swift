@@ -1,7 +1,7 @@
 import XCTest
-@testable import FutureExt
+@testable import CombineExtension
 
-final class FutureExtTests: XCTestCase {
+final class CombineExtensionTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
