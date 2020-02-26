@@ -65,8 +65,9 @@ extension Future {
     }
 
     /**
-     Execute the operation. Example usage
+     Execute the operation.
 
+     Example usage:
          ````
          let future = Future(value: "110")
          future.execute(onSuccess: { value in
@@ -104,7 +105,8 @@ extension Future {
 }
 
 extension Subscribers.Completion where Failure: Error {
-    /// Get value
+
+    /// Get error value
     public var value: Optional<Failure> {
         switch self {
         case .failure(let error):
@@ -117,7 +119,14 @@ extension Subscribers.Completion where Failure: Error {
 
 extension Future where Failure == Never {
 
-    @discardableResult
+    /**
+        Create a Future will never gonna end up with an error
+
+        - Parameters:
+            - on: The DispatchQueue when we run the success or the failure operation
+            - onSuccess: the success completion block of the operation. It has the value of the operation as parameter.
+        - Returns: A Future instance; used when you end assignment of the received value.
+     */
     public func done(on: DispatchQueue = DispatchQueue.global(), _ onSuccess: @escaping SuccessCompletion) -> Future {
         return Future { promise in
             _ = self.assertNoFailure().sink { value in
@@ -126,6 +135,30 @@ extension Future where Failure == Never {
                     }
                 }
         }
+    }
+
+    /**
+     Execute the operation who's never gonna end up with a mistake.
+
+     Example usage:
+        ````
+        let future = Future(value: "110")
+        future.execute(onSuccess: { value in
+           print(value) // it will print 110
+        })
+        ````
+
+     - Parameters:
+       - on: The DispatchQueue when we run the success or the failure operation
+       - onSuccess: the success completion block of the operation. It has the value of the operation as parameter.
+     - Returns: A cancellable instance; used when you end assignment of the received value. Deallocation of the result will tear down the subscription stream.
+    */
+    public func execute(on: DispatchQueue = DispatchQueue.global(), _ onSuccess: @escaping SuccessCompletion) -> AnyCancellable {
+        return assertNoFailure().sink(receiveValue: { value in
+            on.async {
+                onSuccess(value)
+            }
+        })
     }
 }
 
