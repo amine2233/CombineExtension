@@ -63,68 +63,17 @@ extension Future {
     public convenience init(error: Failure) {
         self.init(result: .failure(error))
     }
-
-    /**
-     Execute the operation. Example usage
-
-         ````
-         let future = Future(value: "110")
-         future.execute(onSuccess: { value in
-            print(value) // it will print 110
-         }, onFailure: { error in
-            print(error)
-         })
-         ````
-
-     - Parameters:
-        - on: The DispatchQueue when we run the success or the failure operation
-        - onSuccess: the success completion block of the operation. It has the value of the operation as parameter.
-        - onFailure: the failure completion block of the operation. It has the error of the operation as parameter.
-     - Returns: A cancellable instance; used when you end assignment of the received value. Deallocation of the result will tear down the subscription stream.
-     */
-    public func execute(on queue: DispatchQueue = DispatchQueue.global(),
-                        onSuccess: @escaping SuccessCompletion,
-                        onFailure: FailureCompletion? = nil) -> AnyCancellable {
-        sink(receiveCompletion: { event in queue.async { onFailure?(event) }},
-             receiveValue: { value in queue.async { onSuccess(value) } })
-    }
-
-    /**
-     Recover where error occure
-
-     - Parameter block: the block catch error and transform it in value
-    */
-
-    public func recover(_ block: @escaping (Subscribers.Completion<Failure>) -> Output) -> Future {
-        return Future { promise in
-            _ = self.sink(receiveCompletion: { event in promise(.success(block(event))) },
-                          receiveValue: { value in promise(.success(value))})
-        }
-    }
 }
 
 extension Subscribers.Completion where Failure: Error {
-    /// Get value
+
+    /// Get error value
     public var value: Optional<Failure> {
         switch self {
         case .failure(let error):
             return .some(error)
         default:
             return .none
-        }
-    }
-}
-
-extension Future where Failure == Never {
-
-    @discardableResult
-    public func done(on: DispatchQueue = DispatchQueue.global(), _ onSuccess: @escaping SuccessCompletion) -> Future {
-        return Future { promise in
-            _ = self.assertNoFailure().sink { value in
-                    on.async {
-                        onSuccess(value)
-                    }
-                }
         }
     }
 }
