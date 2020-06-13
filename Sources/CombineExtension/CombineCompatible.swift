@@ -8,15 +8,9 @@ public struct CombineExtension<Base> {
     }
 }
 
-public protocol CombineCompatible {
-    associatedtype CombineExtensionBase
-
-    static var combine: CombineExtension<CombineExtensionBase>.Type { get set }
-    var combine: CombineExtension<CombineExtensionBase> { get set }
-}
+public protocol CombineCompatible {}
 
 extension CombineCompatible {
-
     public static var combine: CombineExtension<Self>.Type {
         return CombineExtension<Self>.self
     }
@@ -26,3 +20,4 @@ extension CombineCompatible {
     }
 }
 
+extension NSObject: CombineCompatible {}

@@ -11,6 +11,7 @@ let package = Package(
         .library(
             name: "CombineExtension",
             targets: ["CombineExtension"]),
+        .library(name: "UICombineExtension", targets: ["UICombineExtension"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -22,8 +23,14 @@ let package = Package(
         .target(
             name: "CombineExtension",
             dependencies: []),
+        .target(
+            name: "UICombineExtension",
+            dependencies: ["CombineExtension"]),
         .testTarget(
             name: "CombineExtensionTests",
             dependencies: ["CombineExtension"]),
+        .testTarget(
+            name: "UICombineExtensionTests",
+            dependencies: ["UICombineExtension"]),
     ]
 )
