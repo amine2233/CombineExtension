@@ -1,9 +1,9 @@
 import XCTest
-import UIKit
 import Combine
 import CombineExtension
 @testable import UICombineExtension
-
+#if canImport(UIKit)
+import UIKit
 
 final class UICombineExtensionTests: XCTestCase {
     var bag = Set<AnyCancellable>()
@@ -53,3 +53,5 @@ private class TestViewModel: ObservableObject {
 private class TestViewModelString: ObservableObject {
     @Published var text: String = ""
 }
+
+#endif
