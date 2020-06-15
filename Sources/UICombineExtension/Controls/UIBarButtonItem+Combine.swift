@@ -29,5 +29,13 @@ public extension CombineExtension where Base: UIBarButtonItem {
     var isEnabled: BindingSink<Base, Bool> {
         BindingSink(owner: base) { $0.isEnabled = $1 }
     }
+
+    var title: BindingSink<Base, String?> {
+        BindingSink(owner: base) { $0.title = $1 }
+    }
+
+    var image: BindingSink<Base, UIImage?> {
+        BindingSink(owner: base) { $0.image = $1 }
+    }
 }
 #endif

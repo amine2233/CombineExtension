@@ -15,7 +15,7 @@ public protocol BindingSubscriber: Subscriber, Cancellable {
 
 extension Publisher {
     @discardableResult
-    static func bind<B: BindingSubscriber> (source: Self, subscriber: B) -> AnyCancellable
+    static func bind<B: BindingSubscriber>(source: Self, subscriber: B) -> AnyCancellable
         where Output == B.Input, Failure == B.Failure
     {
         B.bind(subscriber: subscriber, source: source)
@@ -28,14 +28,5 @@ extension BindingSubscriber {
         where Input == P.Output?, Failure == P.Failure
     {
         Self.bind(subscriber: subscriber, source: source.map(Optional.some))
-    }
-}
-
-extension Publisher {
-    @discardableResult
-    static func bind<B: BindingSubscriber>(source: Self, subscriber: B) -> AnyCancellable
-        where B.Input == Output?, B.Failure == Failure
-    {
-        B.bind(subscriber: subscriber, source: source)
     }
 }

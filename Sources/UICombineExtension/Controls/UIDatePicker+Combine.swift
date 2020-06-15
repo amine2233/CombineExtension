@@ -12,7 +12,7 @@ import UIKit
 
 public extension CombineExtension where Base: UIDatePicker {
     /// A publisher emitting date changes from this date picker.
-    var date: AnyPublisher<Date, Never> {
+    var value: AnyPublisher<Date, Never> {
         Publishers.ControlProperty(control: base,
                                    events: .defaultValueEvents,
                                    keyPath: \.date)
@@ -25,6 +25,10 @@ public extension CombineExtension where Base: UIDatePicker {
                                    events: .defaultValueEvents,
                                    keyPath: \.countDownDuration)
                   .eraseToAnyPublisher()
+    }
+
+    var date: BindingSink<Base, Date> {
+        BindingSink(owner: base) { $0.date = $1 }
     }
 }
 #endif

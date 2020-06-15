@@ -46,5 +46,10 @@ public extension CombineExtension where Base: UITextField {
     var attributedPlaceholder: BindingSink<Base, NSAttributedString?> {
         BindingSink(owner: base) { $0.attributedPlaceholder = $1 }
     }
+
+    /// Bindable sink for `isSecureTextEntry` property.
+    var isSecureTextEntry: BindingSink<Base, Bool> {
+        return BindingSink(owner: base) { $0.isSecureTextEntry = $1 }
+    }
 }
 #endif

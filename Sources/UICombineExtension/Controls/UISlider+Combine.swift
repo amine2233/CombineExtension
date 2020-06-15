@@ -18,5 +18,10 @@ public extension CombineExtension where Base: UISlider {
                                    keyPath: \.value)
                   .eraseToAnyPublisher()
     }
+
+    /// A publisher emitting value changes for this slider.
+    var slide: BindingSink<Base, Float> {
+        BindingSink(owner: base) { $0.value = $1 }
+    }
 }
 #endif

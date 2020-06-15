@@ -41,6 +41,26 @@ final class UICombineExtensionTests: XCTestCase {
         XCTAssertEqual(label.text, "alors")
     }
 
+    func testBindOnSend() {
+        let viewModel = TestViewModelString()
+        var expectedString: String?
+        let expectation = self.expectation(description: #function)
+        expectation.expectedFulfillmentCount = 2
+        viewModel.$text.bind { value in
+            expectedString = value
+            expectation.fulfill()
+        }
+        .store(in: &bag)
+
+        viewModel.text = "newText"
+        self.waitForExpectations(timeout: 2.0) { error in
+            if let error = error {
+                XCTFail(error.localizedDescription)
+            }
+            XCTAssertEqual(expectedString, "newText")
+        }
+    }
+
     static var allTests = [
         ("testExample", testExample),
     ]

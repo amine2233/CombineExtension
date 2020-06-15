@@ -22,5 +22,16 @@ public extension CombineExtension where Base: UIRefreshControl {
     var endRefreshing: BindingSink<Base, ()> {
         BindingSink(owner: base) { $0.endRefreshing() }
     }
+
+    var beginRefreshing: BindingSink<Base, ()> {
+        BindingSink(owner: base) { $0.beginRefreshing() }
+    }
+
+    var attributedTitle: AnyPublisher<NSAttributedString?, Never> {
+        Publishers.ControlProperty(control: base,
+                                   events: .defaultValueEvents,
+                                   keyPath: \.attributedTitle)
+            .eraseToAnyPublisher()
+    }
 }
 #endif
