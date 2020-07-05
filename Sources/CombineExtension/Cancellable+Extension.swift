@@ -164,7 +164,7 @@ extension NSObject: CancellableContainerProvider {
 }
 
 extension Cancellable {
-    func eraseToAnyCancellable() -> AnyCancellable {
+    public func eraseToAnyCancellable() -> AnyCancellable {
         AnyCancellable(self)
     }
 }
