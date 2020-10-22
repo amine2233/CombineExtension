@@ -1,7 +1,6 @@
 import Foundation
 
 extension NSRecursiveLock {
-
     public convenience init(name: String?) {
         self.init()
         self.name = name
@@ -12,7 +11,6 @@ extension NSRecursiveLock {
 import Combine
 
 public struct NonCancellable: Cancellable {
-
     public static let instance = NonCancellable()
 
     private init() {}
@@ -21,7 +19,6 @@ public struct NonCancellable: Cancellable {
 }
 
 public final class BlockCancellable: Cancellable {
-
     private var handler: (() -> Void)
     private let lock = NSRecursiveLock(name: "com.recursiveLock.blockcancelable")
 
@@ -36,7 +33,6 @@ public final class BlockCancellable: Cancellable {
 }
 
 public final class DeinitDisposable: Cancellable {
-
     private let otherCancellable: Cancellable
 
     public init(cancellable: Cancellable) {
@@ -53,7 +49,6 @@ public final class DeinitDisposable: Cancellable {
 }
 
 public final class CompositeCancellable: Cancellable {
-
     private var cancellables: [Cancellable] = []
     private let lock = NSRecursiveLock(name: "com.recursiveLock.blockcancellable")
 
@@ -86,7 +81,6 @@ public final class CompositeCancellable: Cancellable {
 }
 
 extension Cancellable {
-
     public func cancel(in cancelContainer: CancellableContainer) {
         cancelContainer.add(cancellable: self)
     }
@@ -98,7 +92,6 @@ public protocol CacellableContainerProtocol: Cancellable {
 }
 
 public final class CancellableContainer: CacellableContainerProtocol {
-
     private var cancellables: [Cancellable] = []
     private let lock = NSRecursiveLock(name: "com.recursiveLock.blockcontainercancellable")
 
@@ -142,7 +135,6 @@ protocol CancellableContainerProvider {
 }
 
 extension NSObject: CancellableContainerProvider {
-
     private struct AssociatedKeys {
         static var DisposableKey = "CancellableBagKey"
     }

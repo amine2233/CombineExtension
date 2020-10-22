@@ -2,7 +2,6 @@ import Foundation
 
 /// A Protocol that represent `Result` type
 public protocol ResultProtocol {
-
     associatedtype Success
 
     associatedtype Failure: Error
@@ -18,7 +17,6 @@ public protocol ResultProtocol {
 }
 
 extension Result: ResultProtocol where Failure: Error {
-
     /// Creates a new result with a success value.
     ///
     /// - Parameter value: A success value.
@@ -127,7 +125,6 @@ extension Result: ResultProtocol where Failure: Error {
 
 // MARK: Result work with throws
 extension Result {
-
     /// Return value or catch error
     public func convertThrow() throws -> Success {
         switch self {

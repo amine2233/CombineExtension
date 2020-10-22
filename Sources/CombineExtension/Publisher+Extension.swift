@@ -4,7 +4,6 @@ import Foundation
 import Combine
 
 extension Publisher {
-
     /// - seealso: https://twitter.com/peres/status/1136132104020881408
     public func flatMapLatest<T: Publisher>(_ transform: @escaping (Self.Output) -> T) -> Publishers.SwitchToLatest<T, Publishers.Map<Self, T>> where T.Failure == Self.Failure {
         map(transform).switchToLatest()
@@ -12,7 +11,6 @@ extension Publisher {
 }
 
 extension Publisher {
-
     public static func empty() -> AnyPublisher<Output, Failure> {
         return Empty()
             .eraseToAnyPublisher()

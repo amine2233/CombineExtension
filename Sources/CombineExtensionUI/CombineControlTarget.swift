@@ -1,6 +1,5 @@
 import Combine
 import Foundation
-#if canImport(UIKit)
 
 public extension Publishers {
     struct ControlTarget<Control: AnyObject>: Publisher {
@@ -63,4 +62,3 @@ extension Publishers.ControlTarget {
         }
     }
 }
-#endif

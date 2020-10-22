@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-extension Publishers {
+public extension Publishers {
     struct DefaultsObservation<T: PropertyListValue>: Publisher {
         public typealias Output = T?
         public typealias Failure = Never

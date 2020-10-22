@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-extension Publishers {
+public extension Publishers {
     struct CombineControlNotification: Publisher {
         public typealias Output = Notification
         public typealias Failure = Never
@@ -23,7 +23,7 @@ extension Publishers {
             self.object = object
         }
 
-        func receive<S>(subscriber: S) where S : Subscriber, Self.Failure == S.Failure, Self.Output == S.Input {
+        public func receive<S>(subscriber: S) where S : Subscriber, Self.Failure == S.Failure, Self.Output == S.Input {
             let subscription = SubscriptionNotification(subscriber: subscriber, notification: notification, name: name, object: object)
             subscriber.receive(subscription: subscription)
         }
@@ -41,7 +41,7 @@ extension Publishers {
             self.keyPath = keyPath
         }
 
-        func receive<S>(subscriber: S) where S : Subscriber, Self.Failure == S.Failure, Self.Output == S.Input {
+        public func receive<S>(subscriber: S) where S : Subscriber, Self.Failure == S.Failure, Self.Output == S.Input {
             let subscription = SubscriptionNotification(subscriber: subscriber, notification: notification, keyPath: keyPath)
             subscriber.receive(subscription: subscription)
         }
@@ -61,7 +61,7 @@ extension Publishers {
             self.options = options
         }
 
-        func receive<S>(subscriber: S) where S : Subscriber, Self.Failure == S.Failure, Self.Output == S.Input {
+        public func receive<S>(subscriber: S) where S : Subscriber, Self.Failure == S.Failure, Self.Output == S.Input {
             let subscription = SubscriptionNotification(subscriber: subscriber, notification: notification, keyPath: keyPath, options: options)
             subscriber.receive(subscription: subscription)
         }
@@ -84,9 +84,7 @@ extension Publishers.CombineControlNotification {
                 .store(in: &bag)
         }
 
-        func request(_ demand: Subscribers.Demand) {
-
-        }
+        func request(_ demand: Subscribers.Demand) {}
 
         func cancel() {
             subscriber = nil
@@ -111,9 +109,7 @@ extension Publishers.CombineControlNotificationKeyPath {
                 .store(in: &bag)
         }
 
-        func request(_ demand: Subscribers.Demand) {
-
-        }
+        func request(_ demand: Subscribers.Demand) {}
 
         func cancel() {
             subscriber = nil

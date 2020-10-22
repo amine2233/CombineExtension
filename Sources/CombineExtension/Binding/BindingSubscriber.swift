@@ -21,6 +21,7 @@ extension Publisher {
         B.bind(subscriber: subscriber, source: source)
     }
 }
+
 // MARK: Optional
 extension BindingSubscriber {
     @discardableResult

@@ -4,7 +4,6 @@ import Foundation
 import Combine
 
 extension Future {
-
     // MARK: - Typealias
     /// Failure completion
     public typealias FailureCompletion = (Subscribers.Completion<Failure>) -> Void
@@ -66,7 +65,6 @@ extension Future {
 }
 
 extension Subscribers.Completion where Failure: Error {
-
     /// Get error value
     public var value: Optional<Failure> {
         switch self {
