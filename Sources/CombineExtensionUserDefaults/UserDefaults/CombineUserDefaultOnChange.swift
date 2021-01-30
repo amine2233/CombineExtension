@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import CombineExtension
 
 public extension Publishers {
     struct DefaultsObservation<T: PropertyListValue>: Publisher {

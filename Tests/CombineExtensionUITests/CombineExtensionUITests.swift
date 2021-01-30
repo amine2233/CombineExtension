@@ -1,7 +1,7 @@
 import XCTest
 import Combine
 import CombineExtension
-@testable import UICombineExtension
+@testable import CombineExtensionUI
 #if canImport(UIKit)
 import UIKit
 

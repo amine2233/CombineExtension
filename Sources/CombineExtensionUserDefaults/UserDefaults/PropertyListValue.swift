@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CombineExtension
 
 public protocol PropertyListValue {}
 
@@ -47,7 +48,9 @@ extension UInt64: PropertyListValue {}
 extension Double: PropertyListValue {}
 extension Float: PropertyListValue {}
 #if os(macOS)
+#if swift(<5.1)
 extension Float80: PropertyListValue {}
+#endif
 #endif
 
 extension Array: PropertyListValue where Element: PropertyListValue {}

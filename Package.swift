@@ -9,7 +9,8 @@ let package = Package(
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(name: "CombineExtension", targets: ["CombineExtension"]),
-        .library(name: "CombineExtensionUI", targets: ["CombineExtensionUI"])
+        .library(name: "CombineExtensionUI", targets: ["CombineExtensionUI"]),
+        .library(name: "CombineExtensionUserDefaults", targets: ["CombineExtensionUserDefaults"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -24,11 +25,17 @@ let package = Package(
         .target(
             name: "CombineExtensionUI",
             dependencies: ["CombineExtension"]),
+        .target(
+            name: "CombineExtensionUserDefaults",
+            dependencies: ["CombineExtension"]),
         .testTarget(
             name: "CombineExtensionTests",
             dependencies: ["CombineExtension"]),
         .testTarget(
             name: "CombineExtensionUITests",
-            dependencies: ["CombineExtensionUI"]),
+            dependencies: ["CombineExtensionUI", "CombineExtension"]),
+        .testTarget(
+            name: "CombineExtensionUserDefaultsTests",
+            dependencies: ["CombineExtensionUserDefaults", "CombineExtension"]),
     ]
 )

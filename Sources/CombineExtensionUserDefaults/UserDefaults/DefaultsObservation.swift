@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import CombineExtension
 
 final class DefaultsObservation<T: PropertyListValue>: NSObject, Cancellable {
     let key: Key
