@@ -11,6 +11,8 @@ let package = Package(
         .library(name: "CombineExtension", targets: ["CombineExtension"]),
         .library(name: "CombineExtensionUI", targets: ["CombineExtensionUI"]),
         .library(name: "CombineExtensionUserDefaults", targets: ["CombineExtensionUserDefaults"]),
+		.library(name: "CombineBinding", targets: ["CombineBinding"]),
+		.library(name: "CombineExtensionXCTest", targets: ["CombineExtensionXCTest"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -28,6 +30,10 @@ let package = Package(
         .target(
             name: "CombineExtensionUserDefaults",
             dependencies: ["CombineExtension"]),
+		.target(name: "CombineBinding",
+				dependencies: []),
+		.target(name: "CombineExtensionXCTest",
+				dependencies: []),
         .testTarget(
             name: "CombineExtensionTests",
             dependencies: ["CombineExtension"]),
@@ -37,5 +43,7 @@ let package = Package(
         .testTarget(
             name: "CombineExtensionUserDefaultsTests",
             dependencies: ["CombineExtensionUserDefaults", "CombineExtension"]),
+		.testTarget(name: "CombineBindingTests",
+				dependencies: ["CombineBinding"]),
     ]
 )

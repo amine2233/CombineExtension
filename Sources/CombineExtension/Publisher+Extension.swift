@@ -28,4 +28,22 @@ extension Publisher {
     }
 }
 
+extension Published.Publisher {
+	func collectNext(_ count: Int) -> AnyPublisher<[Output], Never> {
+		self.dropFirst()
+			.collect(count)
+			.first()
+			.eraseToAnyPublisher()
+	}
+}
+
+extension Publisher where Failure == Never {
+	/// - seealso: https://www.swiftbysundell.com/articles/combine-self-cancellable-memory-management/
+	func weakAssign<T: AnyObject>(to keyPath: ReferenceWritableKeyPath<T, Output>, on object: T) -> AnyCancellable {
+		sink { [weak object] value in
+			object?[keyPath: keyPath] = value
+		}
+	}
+}
+
 #endif
