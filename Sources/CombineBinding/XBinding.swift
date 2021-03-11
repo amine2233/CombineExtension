@@ -62,7 +62,7 @@ extension XBindingConvertible {
 }
 
 //: `XBinding` is one of those types on which we want that `@dynamicMemberLookup` feature:
-public extension XBinding: XBindingConvertible {
-	var binding: XBinding<Value> { self } // well for something already a `Binding`, just use itself!
+extension XBinding: XBindingConvertible {
+	public var binding: XBinding<Value> { self } // well for something already a `Binding`, just use itself!
 }
 

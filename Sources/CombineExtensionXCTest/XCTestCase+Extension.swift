@@ -1,8 +1,10 @@
 import Foundation
-import XCTest
 import Combine
 
-extension XCTestCase {
+#if canImport(XCTest)
+import XCTest
+
+public extension XCTestCase {
 	/// - Seealso: https://www.swiftbysundell.com/articles/unit-testing-combine-based-swift-code/
 	func await<T: Publisher>(
 		_ publisher: T,
@@ -40,3 +42,4 @@ extension XCTestCase {
 		return try unwrappedResult.get()
 	}
 }
+#endif
