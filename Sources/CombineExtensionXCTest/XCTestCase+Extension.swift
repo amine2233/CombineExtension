@@ -6,7 +6,7 @@ import XCTest
 
 public extension XCTestCase {
 	/// - Seealso: https://www.swiftbysundell.com/articles/unit-testing-combine-based-swift-code/
-	func await<T: Publisher>(
+	func awaitPublisher<T: Publisher>(
 		_ publisher: T,
 		timeout: TimeInterval = 10,
 		file: StaticString = #file,
