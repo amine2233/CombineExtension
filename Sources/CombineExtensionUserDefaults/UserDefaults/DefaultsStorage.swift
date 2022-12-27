@@ -16,10 +16,10 @@ public struct DefaultsStorage<Value: PropertyListValue>: DynamicProperty {
 
     @ObservedObject private var _value: DefaultsObservationStorage<Value>
 
-    private init(
+    public init(
         value: Value,
-        userDefaults: UserDefaults = .standard,
-        key: UserDefaultsKey
+        key: UserDefaultsKey,
+        userDefaults: UserDefaults = .standard
     ) {
         _value = DefaultsObservationStorage(
             defaultValue: value,
