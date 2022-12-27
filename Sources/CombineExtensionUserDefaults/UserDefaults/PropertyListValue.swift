@@ -10,7 +10,7 @@ import CombineExtension
 
 public protocol PropertyListValue {}
 
-public struct Key: RawRepresentable {
+public struct UserDefaultsKey: RawRepresentable {
     public let rawValue: String
 
     public init(rawValue: String) {
@@ -18,7 +18,7 @@ public struct Key: RawRepresentable {
     }
 }
 
-extension Key: ExpressibleByStringLiteral {
+extension UserDefaultsKey: ExpressibleByStringLiteral {
     public init(stringLiteral value: String) {
         rawValue = value
     }

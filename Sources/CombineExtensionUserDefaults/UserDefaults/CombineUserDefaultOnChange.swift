@@ -15,9 +15,9 @@ public extension Publishers {
         public typealias Failure = Never
 
         private let userDefaults: UserDefaults
-        private let key: Key
+        private let key: UserDefaultsKey
 
-        public init(userDefaults: UserDefaults, key: Key) {
+        public init(userDefaults: UserDefaults, key: UserDefaultsKey) {
             self.userDefaults = userDefaults
             self.key = key
         }
@@ -36,11 +36,11 @@ public extension Publishers {
 extension Publishers.DefaultsObservation {
     private final class SubscriptionDefaultsObservation<S: Subscriber, T: PropertyListValue>: NSObject, Subscription where S.Input == T? {
         private var subscriber: S?
-        private var key: Key
+        private var key: UserDefaultsKey
         private var isDisposed: Bool = false
         private var userDefaults: UserDefaults
 
-        init(subscriber: S, userDefaults: UserDefaults, key: Key) {
+        init(subscriber: S, userDefaults: UserDefaults, key: UserDefaultsKey) {
             self.subscriber = subscriber
             self.userDefaults = userDefaults
             self.key = key

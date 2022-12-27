@@ -10,20 +10,17 @@ import Combine
 import CombineExtension
 
 final class DefaultsObservation<T: PropertyListValue>: NSObject, Cancellable {
-    let key: Key
-    private var onChange: (T?) -> Void
+    let key: UserDefaultsKey
     var isDisposed: Bool = false
     var userDefaults: UserDefaults
+    private var onChange: (T?) -> Void
 
-    init(key: Key, userDefaults: UserDefaults = .standard, onChange: @escaping (T?) -> Void) {
+    init(key: UserDefaultsKey, userDefaults: UserDefaults = .standard, onChange: @escaping (T?) -> Void) {
         self.key = key
         self.onChange = onChange
         self.userDefaults = userDefaults
-    }
-
-    func configure() -> DefaultsObservation<T> {
-        userDefaults.addObserver(self, forKeyPath: key.rawValue, options: [.new], context: nil)
-        return self
+        super.init()
+        self.userDefaults.addObserver(self, forKeyPath: key.rawValue, options: [.new], context: nil)
     }
 
     // swiftlint:disable block_based_kvo
