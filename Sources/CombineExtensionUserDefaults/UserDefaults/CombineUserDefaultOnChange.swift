@@ -35,32 +35,34 @@ public extension Publishers {
 
 extension Publishers.DefaultsObservation {
     private final class SubscriptionDefaultsObservation<S: Subscriber, T: PropertyListValue>: NSObject, Subscription where S.Input == T? {
-        private var subscriber: S?
+        private var subscriber: S
         private var key: UserDefaultsKey
         private var isDisposed: Bool = false
         private var userDefaults: UserDefaults
 
-        init(subscriber: S, userDefaults: UserDefaults, key: UserDefaultsKey) {
+        init(
+            subscriber: S,
+            userDefaults: UserDefaults,
+            key: UserDefaultsKey
+        ) {
             self.subscriber = subscriber
             self.userDefaults = userDefaults
             self.key = key
             super.init()
-            configure()
+            userDefaults.addObserver(self, forKeyPath: key.rawValue, options: [.new], context: nil)
         }
 
         func request(_: Subscribers.Demand) {}
 
-        func configure() {
-            userDefaults.addObserver(self, forKeyPath: key.rawValue, options: [.new], context: nil)
-        }
-
         // swiftlint:disable block_based_kvo
-        override func observeValue(forKeyPath keyPath: String?,
-                                   of object: Any?,
-                                   change: [NSKeyValueChangeKey: Any]?,
-                                   context _: UnsafeMutableRawPointer?) {
+        override func observeValue(
+            forKeyPath keyPath: String?,
+            of object: Any?,
+            change: [NSKeyValueChangeKey: Any]?,
+            context _: UnsafeMutableRawPointer?
+        ) {
             guard let change = change, object != nil, keyPath == key.rawValue else { return }
-            _ = subscriber?.receive(change[.newKey] as? T)
+            _ = subscriber.receive(change[.newKey] as? T)
         }
 
         // swiftlint:enable block_based_kvo
@@ -69,7 +71,7 @@ extension Publishers.DefaultsObservation {
             if !isDisposed {
                 userDefaults.removeObserver(self, forKeyPath: key.rawValue, context: nil)
                 isDisposed = true
-                subscriber?.receive(completion: .finished)
+                subscriber.receive(completion: .finished)
             }
         }
     }
